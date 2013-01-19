@@ -23,25 +23,25 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
-			<plugin>
-				<inherited>false</inherited>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>properties-maven-plugin</artifactId>
-				<version>1.0-alpha-2</version>
-				<executions>
-					<execution>
-						<phase>validate</phase>
-						<goals>
-							<goal>read-project-properties</goal>
-						</goals>
-						<configuration>
-							<files>
-								<file>${basedir}/pom_custom.properties</file>
-							</files>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<inherited>false</inherited> -->
+<!-- 				<groupId>org.codehaus.mojo</groupId> -->
+<!-- 				<artifactId>properties-maven-plugin</artifactId> -->
+<!-- 				<version>1.0-alpha-2</version> -->
+<!-- 				<executions> -->
+<!-- 					<execution> -->
+<!-- 						<phase>validate</phase> -->
+<!-- 						<goals> -->
+<!-- 							<goal>read-project-properties</goal> -->
+<!-- 						</goals> -->
+<!-- 						<configuration> -->
+<!-- 							<files> -->
+<!-- 								<file>${basedir}/pom_custom.properties</file> -->
+<!-- 							</files> -->
+<!-- 						</configuration> -->
+<!-- 					</execution> -->
+<!-- 				</executions> -->
+<!-- 			</plugin> -->
 		</plugins>
 	</build>
 	<distributionManagement>

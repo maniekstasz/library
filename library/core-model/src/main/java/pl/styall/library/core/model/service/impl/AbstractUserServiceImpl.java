@@ -12,10 +12,10 @@ import pl.styall.library.core.model.service.AbstractUserService;
 public abstract class AbstractUserServiceImpl<USER extends AbstractUser<?, ?>>
 		implements AbstractUserService<USER> {
 	@Autowired
-	private UserDao<USER> userDao;
+	protected UserDao<USER> userDao;
 
 	@Autowired
-	private ShaPasswordEncoder passwordEncoder;
+	protected ShaPasswordEncoder passwordEncoder;
 
 
 	@Override

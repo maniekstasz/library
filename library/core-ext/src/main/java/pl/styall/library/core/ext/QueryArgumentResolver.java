@@ -21,7 +21,6 @@ public class QueryArgumentResolver implements WebArgumentResolver {
 	@Override
 	public Object resolveArgument(MethodParameter param,
 			NativeWebRequest request) throws Exception {
-
 		Annotation[] paramAnns = param.getParameterAnnotations();
 		Class paramType = param.getParameterType();
 		for (Annotation paramAnn : paramAnns) {
@@ -32,9 +31,11 @@ public class QueryArgumentResolver implements WebArgumentResolver {
 						.getNativeRequest();
 				String url = httprequest.getRequestURL().toString();
 				String queryString = httprequest.getQueryString();
-				Object result = jacksonObjectMapper.readValue(getParsedObject(url, queryString), paramType);
+				Map<String, Object> result = jacksonObjectMapper.readValue(getParsedObject(url, queryString), HashMap.class);
 				if (result == null && required)
 					throw new IllegalStateException("Missing parameter");
+				QueryObjectWrapper wrapper = new QueryObjectWrapper();
+				wrapper.queryObject = result;
 				return result;
 			}
 		}
@@ -65,6 +66,7 @@ public class QueryArgumentResolver implements WebArgumentResolver {
 			result.deleteCharAt(a);
 		}
 		result.append("}");
+		System.out.println(result);
 		return result.toString();
 	}
 
