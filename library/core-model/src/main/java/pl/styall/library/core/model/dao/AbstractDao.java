@@ -1,9 +1,13 @@
 package pl.styall.library.core.model.dao;
 
+import java.util.Map;
+
+import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.GenericTypeResolver;
 
