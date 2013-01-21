@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.Loader;
 import org.hibernate.annotations.Parameter;
 import org.hibernate.annotations.Type;
 
@@ -28,7 +29,6 @@ public class CommonEntity implements Serializable {
 	public Long getId() {
 		return id;
 	}
-
 	public void setId(Long id) {
 		this.id = id;
 	}
