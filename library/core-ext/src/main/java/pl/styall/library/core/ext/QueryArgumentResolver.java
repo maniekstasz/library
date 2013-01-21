@@ -1,7 +1,9 @@
 package pl.styall.library.core.ext;
 
 import java.lang.annotation.Annotation;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -30,12 +32,13 @@ public class QueryArgumentResolver implements WebArgumentResolver {
 			if (QueryObject.class.isInstance(paramAnn)) {
 				QueryObject queryObject = (QueryObject) paramAnn;
 				boolean required = queryObject.required();
+				String objects[] = queryObject.objects();
 				HttpServletRequest httprequest = (HttpServletRequest) request
 						.getNativeRequest();
 				String url = httprequest.getRequestURL().toString();
 				String queryString = httprequest.getQueryString();
-				Map<String, Object> result = jacksonObjectMapper.readValue(
-						getParsedObject(url, queryString), HashMap.class);
+				Map<String, Object> result = getParsedObject(url, queryString,
+						objects);
 				if (result == null && required)
 					throw new IllegalStateException("Missing parameter");
 				QueryObjectWrapper wrapper = new QueryObjectWrapper();
@@ -47,63 +50,83 @@ public class QueryArgumentResolver implements WebArgumentResolver {
 		return WebArgumentResolver.UNRESOLVED;
 	}
 
-	private String getParsedObject(String url, String queryString) {
-		StringBuffer result = new StringBuffer();
-		result.append("{");
+	private boolean contains(String[] objects, String obj) {
+		for (int i = 0; i < objects.length; i++) {
+			if (objects[i].equals(obj)){
+				System.out.println(obj);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private Map<String, Object> getParsedObject(String url, String queryString,
+			String[] objects) {
+		Map<String, Object> result = new HashMap<String, Object>();
+		System.out.println(url);
 		String urlParts[] = url.split("/");
+		
+		boolean value = false;
 		for (int i = 0; i < urlParts.length; i++) {
-			if (urlParts[i].matches("(^[0-9]+$)|(.+[&=].+)")) {
+			if (value) {
 				String params[] = urlParts[i].split(del);
-				result.append('"' + urlParts[i - 1] + "\":").append("{");
+				Map<String, Object> subObject = new HashMap<String, Object>();
 				boolean wasId = false;
 				for (int j = 0; j < params.length; j++) {
 					if (params[j].matches("^[0-9]+$")) {
 						if (!wasId) {
-							result.append("\"id\":").append(params[j]).append(",");
+							subObject.put("id", urlParts[i]);
 							wasId = true;
 						}
 					} else {
 						String paramParts[] = params[j].split("=");
 						if (paramParts.length == 2) {
-							if (!paramParts[1]
-									.matches("(^-?(([0-9]+)|([0-9]+[\\.\\,][0-9]+))$)|(\bfalse\b|\btrue\b|\bnull\b)"))
-								result.append('"' + paramParts[0] + '"').append(":")
-										.append('"' + paramParts[1] + '"').append(",");
-							else
-								result.append('"' + paramParts[0] + '"').append(":")
-										.append(paramParts[1]).append(",");
+							subObject.put(paramParts[0],
+									paramParts[1]);
 						}
 					}
 				}
-				int a = result.lastIndexOf(",");
-				if (a != -1) {
-					result.deleteCharAt(a);
-				}
-				result.append("}").append(",");
+				value = false;
+				result.put(urlParts[i - 1], subObject);
+			}else if (contains(objects, urlParts[i])) {
+				value = true;
 			}
+
 		}
 		if (queryString != null) {
 			String queryParts[] = queryString.split(del);
 			for (String part : queryParts) {
 				final String par[] = part.split("=");
-				if(par.length!=2)
-					continue;
-				if (!par[1]
-						.matches("(^-?(([0-9]+)|([0-9]+[\\.\\,][0-9]+))$)|(\bfalse\b|\btrue\b|\bnull\b)"))
-					result.append('"' + par[0] + '"').append(":")
-							.append('"' + par[1] + '"').append(",");
-				else
-					result.append('"' + par[0] + '"').append(":")
-							.append(par[1]).append(",");
+				if (par.length == 2){
+					String coma[] = par[1].split(",");
+					if(coma.length>1){
+						List<Object> subObject = new ArrayList<Object>(coma.length);
+						for(int i=0;i<coma.length;i++){
+							subObject.add(coma[i]);
+						}
+						result.put(par[0], subObject);
+					}else{
+						result.put(par[0], par[1]);
+					}
+
+				}
 			}
 		}
-		int a = result.lastIndexOf(",");
-		if (a != -1) {
-			result.deleteCharAt(a);
-		}
-		result.append("}");
-		System.out.println(result);
-		return result.toString();
+		return result;
 	}
+
+//	private Object getByType(String part) {
+//		if (part.matches("^-?[0-9]+$")) {
+//			return new Integer(part);
+//		} else if (part.matches("^-?[0-9]+[\\.\\,][0-9]+$")) {
+//			return new Double(part);
+//		} else if (part.matches("\bfalse\b|\btrue\b")) {
+//			return new Boolean(part);
+//		} else if (part.equals("null")) {
+//			return null;
+//		} else {
+//			return part;
+//		}
+//	}
 
 }

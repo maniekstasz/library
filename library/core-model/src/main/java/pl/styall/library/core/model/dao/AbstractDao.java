@@ -33,20 +33,20 @@ public abstract class AbstractDao<EntityT extends CommonEntity>{
 	public void update(EntityT object){
 		currentSession().update(object);
 	}
-	public EntityT merge(UUID id, EntityT from ){
+	public EntityT merge(String id, EntityT from ){
 		EntityT temp = (EntityT) currentSession().load(getType(), id);
 		return (EntityT) currentSession().merge(from);
 	}
-	public EntityT get(UUID id){
+	public EntityT get(String id){
 		return (EntityT) currentSession().load(getType(), id);
 	}
-	public EntityT getInitialized(UUID id){
+	public EntityT getInitialized(String id){
 		EntityT object  = get(id);
 		Hibernate.initialize(object);
 		return object;
 	}
 	
-	public void delete(UUID id){
+	public void delete(String id){
 		EntityT object = (EntityT) currentSession().load(getType(), id);
 		if(object != null){ // TODO wyrzucic wyjatek
 			currentSession().delete(object);

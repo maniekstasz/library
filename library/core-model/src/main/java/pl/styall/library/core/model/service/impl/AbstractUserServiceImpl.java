@@ -28,7 +28,7 @@ public abstract class AbstractUserServiceImpl<USER extends AbstractUser<?, ?>>
 
 	@Override
 	@Transactional
-	public boolean changePassword(UUID id, String oldPassword,
+	public boolean changePassword(String id, String oldPassword,
 			String newPassword) {
 		USER user = userDao.get(id);
 		String encodedPassword = passwordEncoder.encodePassword(oldPassword,

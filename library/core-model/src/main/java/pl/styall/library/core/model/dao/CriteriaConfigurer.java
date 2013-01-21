@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
+import org.hibernate.criterion.Restrictions;
 
 public class CriteriaConfigurer {
 
@@ -19,6 +20,11 @@ public class CriteriaConfigurer {
 				criteria.addOrder(Order.desc((String)params.get("orderby")));
 			}
 		}
+//		if(params.containsKey("search")&&params.containsKey("searchBy")){
+//			criteria.add(Restrictions.)
+//		}
 	}
+	
+	
 
 }

@@ -3,6 +3,7 @@ package pl.styall.library.core.model;
 import java.io.Serializable;
 import java.util.UUID;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -17,16 +18,17 @@ public class CommonEntity implements Serializable {
 	private static final long serialVersionUID = -8621541507119130733L;
 
 	@Id
-	@Type(type = "pg-uuid")
-	@GeneratedValue(generator = "uuid")
-	@GenericGenerator(name = "uuid", strategy = "uuid2",parameters = { @Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy") })
-	protected UUID id;
+	@Column(length=24)
+//	@Type(type = "pg-uuid")
+	@GeneratedValue(generator = "base64-uuid")
+	@GenericGenerator(name = "base64-uuid", strategy = "pl.styall.library.core.ext.Base64UUIDGenerator",parameters = { @Parameter(name = "uuid_gen_strategy_class", value = "org.hibernate.id.uuid.CustomVersionOneStrategy") })
+	protected String id;
 
-	public UUID getId() {
+	public String getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 

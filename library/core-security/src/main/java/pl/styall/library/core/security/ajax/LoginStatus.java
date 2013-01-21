@@ -6,9 +6,9 @@ public class LoginStatus {
 
     private final boolean loggedIn;
     private final String username;
-    private final UUID id;
+    private final String id;
 
-    public LoginStatus(boolean loggedIn, String username, UUID id) {
+    public LoginStatus(boolean loggedIn, String username, String id) {
         this.loggedIn = loggedIn;
         this.username = username;
         this.id = id;
@@ -22,7 +22,7 @@ public class LoginStatus {
         return username;
     }
 
-	public UUID getId() {
+	public String getId() {
 		return id;
 	}
 }
