@@ -6,9 +6,9 @@ public class LoginStatus {
 
     private final boolean loggedIn;
     private final String username;
-    private final String id;
+    private final Long id;
 
-    public LoginStatus(boolean loggedIn, String username, String id) {
+    public LoginStatus(boolean loggedIn, String username, Long id) {
         this.loggedIn = loggedIn;
         this.username = username;
         this.id = id;
@@ -22,7 +22,7 @@ public class LoginStatus {
         return username;
     }
 
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 }

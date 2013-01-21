@@ -14,10 +14,10 @@ public class LoggedUser extends User  {
 	private static final long serialVersionUID = 326479337951276717L;
 
 
-	private String id;
+	private Long id;
 	private String mail;
 	private String salt;
-	public LoggedUser(String id, String username, String mail, String password, String salt, boolean enabled,
+	public LoggedUser(Long id, String username, String mail, String password, String salt, boolean enabled,
 			boolean accountNonExpired, boolean credentialsNonExpired,
 			boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
@@ -28,7 +28,7 @@ public class LoggedUser extends User  {
 		this.salt = salt;
 	}
 
-	public LoggedUser(String id, String username,String mail, String password,String salt,
+	public LoggedUser(Long id, String username,String mail, String password,String salt,
 			Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 		this.id = id;
@@ -42,11 +42,11 @@ public class LoggedUser extends User  {
 		salt = null;
 	}
 	
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

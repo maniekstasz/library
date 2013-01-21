@@ -13,6 +13,6 @@ import pl.styall.library.core.model.AbstractUserData;
 public interface AbstractUserService<USER extends AbstractUser<?,?>> {
 	
 	public boolean chechMailExists(String mail);
-	public boolean changePassword(String id, String oldPassword, String newPassword);
+	public boolean changePassword(Long id, String oldPassword, String newPassword);
 //	public void addAddress(Long userId, Address address);
 }
