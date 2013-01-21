@@ -15,17 +15,12 @@ import javax.validation.constraints.*;
 
 
 
-
-
-
 @MappedSuperclass
-public abstract class AbstractUserData<ADDRESS extends AbstractAddress> implements CommonEntity{
+public abstract class AbstractUserData<ADDRESS extends AbstractAddress> extends CommonEntity{
 	
 	private static final long serialVersionUID = 4042781705716825393L;
 	public enum Sex {MALE, FEMALE};
 	
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
 	
 	@Size(min=3,max=20)
 	@Pattern(regexp="^[a-zA-ZÄ…Ä‡Ä™Å‚Å„Ã³Å›Å¼ÅºÄ„Ä†Ä˜ÅÅƒÃ“ÅšÅ»Å¹., -]+$")
@@ -54,12 +49,6 @@ public abstract class AbstractUserData<ADDRESS extends AbstractAddress> implemen
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<ADDRESS> addresses = new ArrayList<ADDRESS>();
 	
-	public Long getId() {
-		return id;
-	}
-	private void setId(Long id) {
-		this.id = id;
-	}
 	
 	public String getName() {
 		return name;

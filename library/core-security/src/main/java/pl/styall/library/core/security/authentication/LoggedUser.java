@@ -1,6 +1,7 @@
 package pl.styall.library.core.security.authentication;
 
 import java.util.Collection;
+import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -13,10 +14,10 @@ public class LoggedUser extends User  {
 	private static final long serialVersionUID = 326479337951276717L;
 
 
-	private Long id;
+	private UUID id;
 	private String mail;
 	private String salt;
-	public LoggedUser(Long id, String username, String mail, String password, String salt, boolean enabled,
+	public LoggedUser(UUID id, String username, String mail, String password, String salt, boolean enabled,
 			boolean accountNonExpired, boolean credentialsNonExpired,
 			boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
@@ -27,7 +28,7 @@ public class LoggedUser extends User  {
 		this.salt = salt;
 	}
 
-	public LoggedUser(Long id, String username,String mail, String password,String salt,
+	public LoggedUser(UUID id, String username,String mail, String password,String salt,
 			Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 		this.id = id;
@@ -41,11 +42,11 @@ public class LoggedUser extends User  {
 		salt = null;
 	}
 	
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(UUID id) {
 		this.id = id;
 	}
 

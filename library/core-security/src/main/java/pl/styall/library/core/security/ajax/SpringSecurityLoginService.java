@@ -21,14 +21,14 @@ public class SpringSecurityLoginService implements LoginService {
     public LoginStatus getStatus() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if(auth == null){
-        	return new LoginStatus(false, null, new Long(-1));
+        	return new LoginStatus(false, null, null);
         }
 
         if (!auth.getName().equals("anonymousUser") && auth.isAuthenticated() && !(auth.getClass().isAssignableFrom(String.class))) {
             LoggedUser user = (LoggedUser) auth.getPrincipal();
             return new LoginStatus(true, user.getUsername(), user.getId());
         } else {
-            return new LoginStatus(false, null, new Long(-1));
+            return new LoginStatus(false, null, null);
         }
     }
 
@@ -41,7 +41,7 @@ public class SpringSecurityLoginService implements LoginService {
             LoggedUser user = (LoggedUser) auth.getPrincipal();
             return new LoginStatus(auth.isAuthenticated(), user.getUsername(), user.getId());
         } catch (BadCredentialsException e) {
-            return new LoginStatus(false, null, new Long(-1));
+            return new LoginStatus(false, null, null);
         }
     }
 }

@@ -12,7 +12,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 @MappedSuperclass
-public abstract class AbstractAddress implements CommonEntity {
+public abstract class AbstractAddress extends CommonEntity {
 	/**
 	 * 
 	 */
@@ -21,11 +21,6 @@ public abstract class AbstractAddress implements CommonEntity {
 	public enum AddressType {
 		HOME, CONTACT, OTHER
 	};
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	// @JsonView(Views.Admin.class)
-	private Long id;
 
 	@Size(min = 3, max = 20)
 	@Column(nullable = false)
@@ -48,14 +43,6 @@ public abstract class AbstractAddress implements CommonEntity {
 	private String name;
 
 	private AddressType type;
-
-	public Long getId() {
-		return id;
-	}
-
-	private void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getCity() {
 		return city;

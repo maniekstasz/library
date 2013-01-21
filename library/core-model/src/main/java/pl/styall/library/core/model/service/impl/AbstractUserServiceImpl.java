@@ -1,5 +1,7 @@
 package pl.styall.library.core.model.service.impl;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -26,7 +28,7 @@ public abstract class AbstractUserServiceImpl<USER extends AbstractUser<?, ?>>
 
 	@Override
 	@Transactional
-	public boolean changePassword(Long id, String oldPassword,
+	public boolean changePassword(UUID id, String oldPassword,
 			String newPassword) {
 		USER user = userDao.get(id);
 		String encodedPassword = passwordEncoder.encodePassword(oldPassword,
@@ -41,7 +43,7 @@ public abstract class AbstractUserServiceImpl<USER extends AbstractUser<?, ?>>
 	}
 
 	// @Override
-	// public void addAddress(Long userId, Address address) {
+	// public void addAddress(UUID userId, Address address) {
 	// User user = userDao.get(userId);
 	// user.addAddress(address);
 	// userDao.save(user);

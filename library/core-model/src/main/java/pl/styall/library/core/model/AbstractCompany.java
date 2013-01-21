@@ -9,13 +9,10 @@ import javax.validation.constraints.Pattern;
 
 
 @MappedSuperclass
-public abstract class AbstractCompany<ADDRESS extends AbstractAddress> implements CommonEntity {
+public abstract class AbstractCompany<ADDRESS extends AbstractAddress> extends CommonEntity {
 
 	private static final long serialVersionUID = 3133209022576222042L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
 
 	@NotNull
 	// @JsonView(Views.Owner.class)
@@ -41,14 +38,6 @@ public abstract class AbstractCompany<ADDRESS extends AbstractAddress> implement
 	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinColumn(name = "address_id")
 	private ADDRESS address;
-
-	public Long getId() {
-		return id;
-	}
-
-	private void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getPhone() {
 		return phone;

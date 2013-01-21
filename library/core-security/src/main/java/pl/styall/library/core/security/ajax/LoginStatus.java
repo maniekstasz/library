@@ -1,12 +1,14 @@
 package pl.styall.library.core.security.ajax;
 
+import java.util.UUID;
+
 public class LoginStatus {
 
     private final boolean loggedIn;
     private final String username;
-    private final Long id;
+    private final UUID id;
 
-    public LoginStatus(boolean loggedIn, String username, Long id) {
+    public LoginStatus(boolean loggedIn, String username, UUID id) {
         this.loggedIn = loggedIn;
         this.username = username;
         this.id = id;
@@ -20,7 +22,7 @@ public class LoginStatus {
         return username;
     }
 
-	public Long getId() {
+	public UUID getId() {
 		return id;
 	}
 }

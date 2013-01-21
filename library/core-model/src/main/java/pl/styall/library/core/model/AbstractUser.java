@@ -23,14 +23,10 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 
 @MappedSuperclass
-public abstract class AbstractUser<USER_DATA extends AbstractUserData<ADDRESS>, ADDRESS extends AbstractAddress>  implements CommonEntity{
+public abstract class AbstractUser<USER_DATA extends AbstractUserData<ADDRESS>, ADDRESS extends AbstractAddress>  extends CommonEntity{
 	
 	private static final long serialVersionUID = -8891110973911665190L;
 	public enum Type {USER, BRAND}
-	@Id @GeneratedValue(strategy = GenerationType.AUTO)
-	
-	private Long id;
-	
 	
 	@Valid
 	@Embedded
@@ -48,12 +44,6 @@ public abstract class AbstractUser<USER_DATA extends AbstractUserData<ADDRESS>, 
 	@Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date dateRegistered;
 	
-	public Long getId(){
-		return id;
-	}
-	private void setId(Long id){
-		this.id = id;
-	}
 	public Credentials getCredentials() {
 		return credentials;
 	}
