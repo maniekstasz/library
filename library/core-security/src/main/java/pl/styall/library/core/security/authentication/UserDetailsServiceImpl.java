@@ -15,7 +15,7 @@ import pl.styall.library.core.model.AbstractUser;
 import pl.styall.library.core.model.UserRole;
 import pl.styall.library.core.model.dao.UserDao;
 
-@Service
+@Service("userDetailsService")
 @Transactional
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -39,17 +39,23 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		}
 		return new LoggedUser(user.getId(), user.getCredentials().getUsername(), user
 				.getCredentials().getMail(), user.getCredentials()
-				.getPassword(), user.getCredentials().getSalt(),
+				.getPassword(), user.getCredentials().getSalt(), user.getUserData().getImageUrl(),
 				getAuthorities(roles));
 	}
 
-	private Collection<SimpleGrantedAuthority> getAuthorities(
+	protected Collection<SimpleGrantedAuthority> getAuthorities(
 			List<String> userRoles) {
 		List<SimpleGrantedAuthority> authList = new ArrayList<SimpleGrantedAuthority>();
 		for (String ur : userRoles) {
 			authList.add(new SimpleGrantedAuthority(ur));
 		}
 		return authList; // TODO Auto-generated method stub
+	}
+
+	@Override
+	public UserDetails loadUserByUsername(String username)
+			throws UsernameNotFoundException {
+		return loadUserByLogin(username);
 	}
 
 }

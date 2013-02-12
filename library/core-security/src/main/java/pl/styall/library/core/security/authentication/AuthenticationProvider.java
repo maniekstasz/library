@@ -8,8 +8,7 @@ import org.springframework.security.authentication.encoding.PasswordEncoder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.CredentialsContainer;
-
-
+import org.springframework.security.core.userdetails.UserDetailsService;
 public class AuthenticationProvider implements org.springframework.security.authentication.AuthenticationProvider {
 	
 	@Autowired
@@ -27,7 +26,7 @@ public class AuthenticationProvider implements org.springframework.security.auth
 			throws AuthenticationException {
 
 		String login = (String) authentication.getPrincipal();
-		LoggedUser user = (LoggedUser) userDetailsService.loadUserByLogin(login);
+		LoggedUser user = (LoggedUser) userDetailsService.loadUserByUsername(login);
 
 		authenticationChecks(user, authentication);
 

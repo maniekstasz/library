@@ -14,5 +14,7 @@ public interface AbstractUserService<USER extends AbstractUser<?,?>> {
 	
 	public boolean chechMailExists(String mail);
 	public boolean changePassword(Long id, String oldPassword, String newPassword);
+	public USER getUserByMailOrUsername(String mailOrUsername);
+	public USER add(USER user);
 //	public void addAddress(Long userId, Address address);
 }

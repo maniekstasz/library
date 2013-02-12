@@ -2,7 +2,7 @@
 <application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
 
 	<classpath>
-		<dir name="C:/Users/szymon/programowanie/git/library-codes/library/library/core-ext/target/classes">
+		<dir name="C:/Users/szymon/git/library/library/core-ext/target/classes">
 		</dir>
 	</classpath>
 

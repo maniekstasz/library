@@ -33,7 +33,6 @@ public class Credentials implements Serializable{
 	@Column(nullable=false)
 	private String mail;
 	
-	@NotNull
 	@Pattern(regexp="^[a-z0-9_-]{3,15}$")
 	private String username;
 	

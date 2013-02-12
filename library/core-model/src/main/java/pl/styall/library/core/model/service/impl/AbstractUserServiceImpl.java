@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import pl.styall.library.core.model.AbstractUser;
 import pl.styall.library.core.model.dao.UserDao;
+import pl.styall.library.core.model.defaultimpl.User;
 import pl.styall.library.core.model.service.AbstractUserService;
 
 public abstract class AbstractUserServiceImpl<USER extends AbstractUser<?, ?>>
@@ -41,7 +42,19 @@ public abstract class AbstractUserServiceImpl<USER extends AbstractUser<?, ?>>
 		}
 		return true;
 	}
-
+	
+	@Override
+	@Transactional
+	public USER getUserByMailOrUsername(String mailOrUsername) {
+		return userDao.loadUserByLogin(mailOrUsername);
+	}
+	
+	@Override
+	@Transactional
+	public USER add(USER user){
+		userDao.add(user);
+		return user;
+	}
 	// @Override
 	// public void addAddress(UUID userId, Address address) {
 	// User user = userDao.get(userId);

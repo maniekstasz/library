@@ -15,6 +15,7 @@ import javax.validation.constraints.*;
 
 
 
+
 @MappedSuperclass
 public abstract class AbstractUserData<ADDRESS extends AbstractAddress> extends CommonEntity{
 	
@@ -33,9 +34,7 @@ public abstract class AbstractUserData<ADDRESS extends AbstractAddress> extends 
 	private String surname;
 	
 	
-	@NotNull
 	@Enumerated
-	@Column(nullable=false)
 	private Sex sex;
 	
 	private String phone;
@@ -49,7 +48,14 @@ public abstract class AbstractUserData<ADDRESS extends AbstractAddress> extends 
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<ADDRESS> addresses = new ArrayList<ADDRESS>();
 	
+	private String imageUrl;
 	
+	public String getImageUrl() {
+		return imageUrl;
+	}
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
 	public String getName() {
 		return name;
 	}
