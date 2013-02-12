@@ -24,34 +24,11 @@
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-core</artifactId>
-			<version>3.1.2.RELEASE</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>${springframework-version}</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<version>${springframework-version}</version>
-			<optional>true</optional>
-		</dependency>
+		
 		<dependency>
 			<groupId>pl.styall.library</groupId>
 			<artifactId>core-model</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
-			<optional>true</optional>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-			<version>3.1.2.RELEASE</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
