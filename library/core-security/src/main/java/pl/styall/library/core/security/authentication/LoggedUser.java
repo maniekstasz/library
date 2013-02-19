@@ -18,7 +18,7 @@ public class LoggedUser extends User {
 	private String imageUrl;
 
 
-	public LoggedUser(Long id, String username, String mail, String password,
+	public LoggedUser(Long id, String username, String password,
 			String salt, String imageUrl,
 			boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
@@ -30,7 +30,7 @@ public class LoggedUser extends User {
 		this.imageUrl = imageUrl;
 	}
 
-	public LoggedUser(Long id, String username, String mail, String password,
+	public LoggedUser(Long id, String username, String password,
 			String salt, String imageUrl,
 			Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);

@@ -37,8 +37,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 		for (UserRole ur : userRoles) {
 			roles.add(ur.getRole());
 		}
-		return new LoggedUser(user.getId(), user.getCredentials().getUsername(), user
-				.getCredentials().getMail(), user.getCredentials()
+		return new LoggedUser(user.getId(), user.getCredentials().getUsername(), user.getCredentials()
 				.getPassword(), user.getCredentials().getSalt(), user.getUserData().getImageUrl(),
 				getAuthorities(roles));
 	}
