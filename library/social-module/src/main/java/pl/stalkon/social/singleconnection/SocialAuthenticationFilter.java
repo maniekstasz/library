@@ -148,6 +148,10 @@ public class SocialAuthenticationFilter extends
 	 */
 	protected boolean requiresAuthentication(HttpServletRequest request,
 			HttpServletResponse response) {
+		Authentication auth = getAuthentication();
+		if(auth != null && auth.isAuthenticated()){
+			return false;
+		}
 		String providerId = getRequestedProviderId(request);
 		if (providerId != null) {
 			Set<String> authProviders = authServiceLocator
@@ -157,25 +161,6 @@ public class SocialAuthenticationFilter extends
 		return false;
 	}
 
-	protected Connection<?> addConnection(
-			SocialAuthenticationService<?> authService, Long userId,
-			ConnectionData data) {
-		boolean exists= usersConnectionRepository
-				.isUserIdConnectedTo(data.getProviderId(), userId);
-		if (exists) {
-			// already connected
-			return null;
-		}
-
-		ConnectionRepository repo = usersConnectionRepository
-				.createConnectionRepository(userId);
-		// add new connection
-		Connection<?> connection = authService.getConnectionFactory()
-				.createConnection(data);
-		connection.sync();
-		repo.addConnection(connection);
-		return connection;
-	}
 
 	public Authentication attemptAuthentication(HttpServletRequest request,
 			HttpServletResponse response) throws AuthenticationException {
@@ -215,21 +200,17 @@ public class SocialAuthenticationFilter extends
 			final HttpServletRequest request, HttpServletResponse response)
 			throws SocialAuthenticationRedirectException,
 			AuthenticationException {
-		System.out.println("attemptAuthService");
 		final SocialAuthenticationToken token = authService.getAuthToken(
 				request, response);
 		if (token == null)
 			return null;
-
 		Assert.notNull(token.getConnection());
 
 		Authentication auth = getAuthentication();
 		if (auth == null || !auth.isAuthenticated()) {
 			return doAuthentication(authService, request, token);
-		} else {
-			addConnection(authService, request, token, auth);
-			return null;
-		}
+		} 
+		return null;
 	}
 
 	private String getRequestedProviderId(HttpServletRequest request) {
@@ -258,37 +239,13 @@ public class SocialAuthenticationFilter extends
 		}
 	}
 
-	private void addConnection(
-			final SocialAuthenticationService<?> authService,
-			HttpServletRequest request, SocialAuthenticationToken token,
-			Authentication auth) {
-		// already authenticated - add connection instead
-		Long userId = userIdSource.getUserId();
-		Object principal = token.getPrincipal();
-		if (userId == null || !(principal instanceof ConnectionData))
-			return;
-
-		Connection<?> connection = addConnection(authService, userId,
-				(ConnectionData) principal);
-		if (connection != null) {
-			String redirectUrl = authService.getConnectionAddedRedirectUrl(
-					request, connection);
-			if (redirectUrl == null) {
-				// use default instead
-				redirectUrl = connectionAddedRedirectUrl;
-			}
-			throw new SocialAuthenticationRedirectException(redirectUrl);
-		}
-	}
-
 	private Authentication doAuthentication(
 			SocialAuthenticationService<?> authService,
 			HttpServletRequest request, SocialAuthenticationToken token) {
 		try {
-			System.out.println("doAuth");
-			if (!authService.getConnectionCardinality()
-					.isAuthenticatePossible())
-				return null;
+//			if (!authService.getConnectionCardinality()
+//					.isAuthenticatePossible())
+//				return null;
 			token.setDetails(authenticationDetailsSource.buildDetails(request));
 			Authentication success = getAuthenticationManager().authenticate(
 					token);
@@ -309,7 +266,6 @@ public class SocialAuthenticationFilter extends
 
 	private void updateConnections(SocialAuthenticationService<?> authService,
 			SocialAuthenticationToken token, Authentication success) {
-		System.out.println("updateConnection");
 		if (updateConnections) {
 			Long userId = ((SocialUserDetails) success.getPrincipal())
 					.getUserId();

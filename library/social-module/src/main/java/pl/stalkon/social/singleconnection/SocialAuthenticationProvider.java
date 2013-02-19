@@ -54,7 +54,6 @@ public class SocialAuthenticationProvider implements
 		String providerId = authToken.getProviderId();
 		Connection<?> connection = authToken.getConnection();
 		Long userId = toUserId(connection);
-		System.out.println("authenticationProvider");
 		if (userId == null) {
 			throw new BadCredentialsException("Unknown access token");
 		}
