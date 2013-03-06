@@ -14,6 +14,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -33,7 +34,7 @@ public abstract class AbstractUser<USER_DATA extends AbstractUserData<ADDRESS>, 
 	private Credentials credentials;
 	
 	//TODO: change to lazy fetching but seriously lazy fetchings
-	@OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
 	private USER_DATA userData;
 	
 	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)

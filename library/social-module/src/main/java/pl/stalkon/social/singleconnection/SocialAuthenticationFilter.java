@@ -150,6 +150,7 @@ public class SocialAuthenticationFilter extends
 			HttpServletResponse response) {
 		Authentication auth = getAuthentication();
 		if(auth != null && auth.isAuthenticated()){
+			System.out.println("doesnotrequire");
 			return false;
 		}
 		String providerId = getRequestedProviderId(request);
