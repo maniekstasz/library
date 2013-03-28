@@ -8,22 +8,15 @@ import org.hibernate.criterion.Restrictions;
 
 public class CriteriaConfigurer {
 
-	public void configureCriteria(Criteria criteria, Map<String, Object> params){
-		System.out.println((Integer)params.get("pageCount"));
-		if(params.containsKey("orderBy")){
-			if(params.containsKey("order")){
-				if(((String)params.get("order")).equals("desc")){
-					criteria.addOrder(Order.desc((String)params.get("orderBy")));
-				}else{
-					criteria.addOrder(Order.asc((String)params.get("orderBy")));
-				}
-			}else{
-				criteria.addOrder(Order.desc((String)params.get("orderBy")));
-			}
+	public void configureCriteria(Criteria criteria, Order order, Integer first, Integer last){
+		if(order != null){
+			criteria.addOrder(order);
 		}
-		if(params.containsKey("pageFrom") && params.containsKey("pageCount")){
-			criteria.setFirstResult((Integer)params.get("pageFrom"));
-			criteria.setMaxResults((Integer) params.get("pageCount"));
+		if(first != null){
+			criteria.setFirstResult(first);
+		}
+		if(last != null){
+			criteria.setMaxResults(last);
 		}
 //		if(params.containsKey("search")&&params.containsKey("searchBy")){
 //			criteria.add(Restrictions.)

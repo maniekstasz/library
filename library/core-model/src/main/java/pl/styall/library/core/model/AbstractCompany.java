@@ -75,4 +75,8 @@ public abstract class AbstractCompany<ADDRESS extends AbstractAddress> extends C
 		return address;
 	}
 
+	public void setAddress(ADDRESS address) {
+		this.address = address;
+	}
+
 }
