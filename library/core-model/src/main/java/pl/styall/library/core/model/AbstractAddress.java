@@ -11,6 +11,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 @MappedSuperclass
 public abstract class AbstractAddress extends CommonEntity {
 	/**
@@ -23,21 +25,22 @@ public abstract class AbstractAddress extends CommonEntity {
 	};
 
 	@Size(min = 3, max = 20)
-	@Column(nullable = false)
-	@Pattern(regexp = "^[0-9a-zA-ZąćęłńóśżźĄĆĘŁŃÓŚŻŹ.-_]+$")
+	@Column(nullable = false, length=20)
+	@NotEmpty
 	private String city;
 
 	@Size(min = 3, max = 20)
-	@Column(nullable = false)
-	@Pattern(regexp = "^[0-9a-zA-ZąćęłńóśżźĄĆĘŁŃÓŚŻŹ.-_]+$")
+	@Column(nullable = false, length=20)
+	@NotEmpty
 	private String street;
 
 	@Pattern(regexp = "^[0-9]{2}-[0-9]{3}$")
+	@NotEmpty
 	private String zip;
 
 	@Size(min = 1, max = 20)
-	@Column(nullable = false, name = "home_nr")
-	@Pattern(regexp = "^[0-9a-zA-Z.-_]+$")
+	@NotEmpty
+	@Column(nullable = false, name = "home_nr", length=20)
 	private String homeNr;
 
 	private String name;

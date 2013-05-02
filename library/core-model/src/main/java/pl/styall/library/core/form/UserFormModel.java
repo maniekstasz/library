@@ -7,6 +7,7 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import pl.styall.library.core.ext.validation.FieldMatch;
 
@@ -20,16 +21,19 @@ public class UserFormModel implements Serializable {
 	private static final long serialVersionUID = 1942093774561512549L;
 	@NotNull
 	@Size(min=6, max=20)
-	@Pattern(regexp="^[0-9a-zA-Z,.-=;'!@#$%^&*()_,.]+$")
+	@Pattern(regexp="^[0-9a-zA-Z,.-=;'!@#$%^&*()_]+$")
 	private String password;
+	
 	@NotNull
 	private String confirmPassword;
 	
 	@Email
-	@NotNull
+	@NotEmpty
 	private String mail;
 	
 	@NotNull
+	@Pattern(regexp="^[0-9a-zA-Z_.]+$")
+	@Size(min=5, max=20)
 	private String username;
 	
 	public UserFormModel(){

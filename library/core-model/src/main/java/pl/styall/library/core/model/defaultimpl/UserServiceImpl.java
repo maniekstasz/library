@@ -38,5 +38,11 @@ public class UserServiceImpl extends
 		return user;
 	}
 
+	@Override
+	@Transactional
+	public User get(Long id) {
+		return get(id);
+	}
+
 
 }

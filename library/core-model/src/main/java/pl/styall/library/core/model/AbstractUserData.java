@@ -13,6 +13,8 @@ import javax.persistence.Inheritance;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.*;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 
 
@@ -23,14 +25,10 @@ public abstract class AbstractUserData<ADDRESS extends AbstractAddress> extends 
 	public enum Sex {MALE, FEMALE};
 	
 	
-	@Size(min=3,max=20)
-	@Pattern(regexp="^[a-zA-ZÄ…Ä‡Ä™Å‚Å„Ã³Å›Å¼ÅºÄ„Ä†Ä˜ÅÅƒÃ“ÅšÅ»Å¹., -]+$")
-	@Column(nullable=false)
+
 	private String name;
 	
-	@Pattern(regexp="^[a-zA-ZÄ…Ä‡Ä™Å‚Å„Ã³Å›Å¼ÅºÄ„Ä†Ä˜ÅÅƒÃ“ÅšÅ»Å¹., -]+$")
-	@Size(min=3,max=20)
-	@Column(nullable=false)
+
 	private String surname;
 	
 	
@@ -39,10 +37,8 @@ public abstract class AbstractUserData<ADDRESS extends AbstractAddress> extends 
 	
 	private String phone;
 	
-	@NotNull
 	@Column(nullable=false)
 	@Temporal(TemporalType.DATE)
-//	@DateTimeFormat(pattern="YYYY-MM-DD")
 	private Date birthDate;
 	
 	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)

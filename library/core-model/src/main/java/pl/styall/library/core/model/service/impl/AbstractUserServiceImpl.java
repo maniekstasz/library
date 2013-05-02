@@ -2,6 +2,8 @@ package pl.styall.library.core.model.service.impl;
 
 import java.util.UUID;
 
+import org.hibernate.Hibernate;
+import org.hibernate.engine.HibernateIterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,7 +22,6 @@ public abstract class AbstractUserServiceImpl<USER extends AbstractUser<?, ?>>
 	@Autowired
 	protected ShaPasswordEncoder passwordEncoder;
 
-
 	@Override
 	@Transactional
 	public boolean chechMailExists(String mail) {
@@ -29,31 +30,67 @@ public abstract class AbstractUserServiceImpl<USER extends AbstractUser<?, ?>>
 
 	@Override
 	@Transactional
+	public boolean chechUsernameExists(String username) {
+		return userDao.chechUsernameExists(username);
+	}
+	@Override
+	@Transactional
 	public boolean changePassword(Long id, String oldPassword,
 			String newPassword) {
 		USER user = userDao.get(id);
 		String encodedPassword = passwordEncoder.encodePassword(oldPassword,
 				user.getCredentials().getSalt());
+
 		if (encodedPassword.equals(user.getCredentials().getPassword())) {
-			user.getCredentials().setPassword(encodedPassword);
-			userDao.save(user);
+			user.getCredentials().setSalt();
+			String encodedNewPassword = passwordEncoder.encodePassword(
+					newPassword, user.getCredentials().getSalt());
+			user.getCredentials().setPassword(encodedNewPassword);
+			userDao.update(user);
 		} else {
 			return false;
 		}
 		return true;
 	}
-	
+
 	@Override
 	@Transactional
 	public USER getUserByMailOrUsername(String mailOrUsername) {
 		return userDao.loadUserByLogin(mailOrUsername);
 	}
+
+	@Override
+	@Transactional
+	public USER add(USER user) {
+		userDao.add(user);
+		return user;
+	}
+
+	@Override
+	@Transactional
+	public USER get(Long id) {
+		return userDao.get(id);
+	}
+
+	@Override
+	@Transactional
+	public USER getInitialized(Long id) {
+		USER user = userDao.get(id);
+		Hibernate.initialize(user);
+		return user;
+	}
 	
 	@Override
 	@Transactional
-	public USER add(USER user){
-		userDao.add(user);
-		return user;
+	public boolean activate(String token) {
+		USER user = userDao.activate(token);
+		if(user != null){
+			user.getCredentials().setToken();
+			user.getCredentials().setActive(true);
+			userDao.update(user);
+			return true;
+		}
+		return false;
 	}
 	// @Override
 	// public void addAddress(UUID userId, Address address) {
@@ -62,17 +99,17 @@ public abstract class AbstractUserServiceImpl<USER extends AbstractUser<?, ?>>
 	// userDao.save(user);
 	// }
 
-//	@Override
-//	public USER verifyUser(String username, String password) {
-//		USER user = userDao.loadUserByLogin(username);
-//		if (user == null) {
-//			return user;
-//		}
-//		String encPassword = passwordEncoder.encodePassword(password, user
-//				.getCredentials().getSalt());
-//		if (encPassword.equals(user.getCredentials().getPassword())) {
-//			return user;
-//		}
-//		return null;
-//	}
+	// @Override
+	// public USER verifyUser(String username, String password) {
+	// USER user = userDao.loadUserByLogin(username);
+	// if (user == null) {
+	// return user;
+	// }
+	// String encPassword = passwordEncoder.encodePassword(password, user
+	// .getCredentials().getSalt());
+	// if (encPassword.equals(user.getCredentials().getPassword())) {
+	// return user;
+	// }
+	// return null;
+	// }
 }

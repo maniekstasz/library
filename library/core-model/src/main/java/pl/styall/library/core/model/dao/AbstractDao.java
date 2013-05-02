@@ -1,5 +1,6 @@
 package pl.styall.library.core.model.dao;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -31,7 +32,7 @@ public abstract class AbstractDao<EntityT extends CommonEntity>{
 		add(object);
 	}
 	public void update(EntityT object){
-		currentSession().update(object);
+		currentSession().saveOrUpdate(object);
 	}
 	public EntityT merge(Long id, EntityT from ){
 		EntityT temp = (EntityT) currentSession().load(getType(), id);
@@ -56,5 +57,18 @@ public abstract class AbstractDao<EntityT extends CommonEntity>{
 	
 	private Class<?> getType(){
 		return GenericTypeResolver.resolveTypeArgument(getClass(), AbstractDao.class);
+	}
+	
+	
+	public boolean addRestrictions(Criteria criteria, String alias,
+			List<DaoQueryObject> queryObjectList) {
+		boolean added = false;
+		for (DaoQueryObject qo : queryObjectList) {
+			boolean temp = qo.addCriteria(criteria, alias);
+			if(!added){
+				added = temp;
+			}
+		}
+		return added;
 	}
 }

@@ -22,6 +22,7 @@ public class UserDao<USER extends AbstractUser<?, ?>> extends AbstractDao<USER> 
 		return false;
 	}
 	
+	
 	@SuppressWarnings("unchecked")
 	public boolean chechUsernameExists(String username) {
 		Collection<Long> id = currentSession()
@@ -38,7 +39,7 @@ public class UserDao<USER extends AbstractUser<?, ?>> extends AbstractDao<USER> 
 	public USER loadUserByLogin(String login) {
 		USER user = (USER) currentSession()
 				.createQuery(
-						"from User as user where user.credentials.mail =:login or user.credentials.username =:login")
+						"from User as user where user.credentials.mail =:login or user.credentials.username =:login and user.credentials.active = true")
 				.setString("login", login).uniqueResult();
 		return user;
 	}
@@ -47,5 +48,9 @@ public class UserDao<USER extends AbstractUser<?, ?>> extends AbstractDao<USER> 
 		return (UserRole) currentSession()
 				.createQuery("from UserRole where role = :name")
 				.setString("name", name).uniqueResult();
+	}
+	public USER activate(String token){
+		USER user = (USER) currentSession().createQuery("from User as user where user.credentials.token =:token").setString("token", token).uniqueResult();
+		return user;
 	}
 }

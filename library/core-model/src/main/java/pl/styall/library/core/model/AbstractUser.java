@@ -24,42 +24,50 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.Valid;
 
 @MappedSuperclass
-public abstract class AbstractUser<USER_DATA extends AbstractUserData<ADDRESS>, ADDRESS extends AbstractAddress>  extends CommonEntity{
-	
+public abstract class AbstractUser<USER_DATA extends AbstractUserData<ADDRESS>, ADDRESS extends AbstractAddress>
+		extends CommonEntity {
+
 	private static final long serialVersionUID = -8891110973911665190L;
-	public enum Type {USER, BRAND}
-	
+
+	public enum Type {
+		USER, BRAND
+	}
+
 	@Valid
 	@Embedded
 	private Credentials credentials;
-	
-	//TODO: change to lazy fetching but seriously lazy fetchings
-	@ManyToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
+
+	// TODO: change to lazy fetching but seriously lazy fetchings
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private USER_DATA userData;
-	
-	@ManyToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private List<UserRole> userRoles = new ArrayList<UserRole>();
-	
-	
+
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+	@Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date dateRegistered;
-	
+
 	public Credentials getCredentials() {
 		return credentials;
 	}
+
 	public void setCredentials(Credentials credentials) {
 		this.credentials = credentials;
 	}
+
 	public USER_DATA getUserData() {
 		return userData;
 	}
+
 	public void setUserData(USER_DATA userData) {
 		this.userData = userData;
 	}
+
 	public Date getDateRegistered() {
 		return dateRegistered;
 	}
+
 	public void setDateRegistered(Date dateRegistered) {
 		this.dateRegistered = dateRegistered;
 	}
@@ -67,12 +75,13 @@ public abstract class AbstractUser<USER_DATA extends AbstractUserData<ADDRESS>, 
 	public List<UserRole> getUserRoles() {
 		return userRoles;
 	}
-	
+
 	public void setUserRoles(List<UserRole> userRoles) {
 		this.userRoles = userRoles;
 	}
+
 	public void addUserRole(UserRole role) {
 		userRoles.add(role);
 	}
-	
+
 }

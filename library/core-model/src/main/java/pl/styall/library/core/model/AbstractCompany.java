@@ -7,6 +7,8 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 
 @MappedSuperclass
 public abstract class AbstractCompany<ADDRESS extends AbstractAddress> extends CommonEntity {
@@ -14,24 +16,24 @@ public abstract class AbstractCompany<ADDRESS extends AbstractAddress> extends C
 	private static final long serialVersionUID = 3133209022576222042L;
 
 
-	@NotNull
+	@NotEmpty
 	// @JsonView(Views.Owner.class)
 	private String name;
 
-	@NotNull
+	@NotEmpty
 	@Pattern(regexp = "^[0-9+]+$")
 	private String phone;
 
 	// @JsonView(Views.Owner.class)
 
-	@NotNull
+	@NotEmpty
 	@Pattern(regexp = "^[0-9]{10}$")
 	private String nip;
 
 
 
 	@Temporal(TemporalType.TIMESTAMP)
-	// @JsonView(Views.Admin.class)
+	@Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date dateRegistered;
 
 	@Valid

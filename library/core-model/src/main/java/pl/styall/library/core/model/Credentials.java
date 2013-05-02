@@ -28,14 +28,23 @@ public class Credentials implements Serializable{
 	@Column(nullable=false)
 	private String token;
 	
-	@NotNull
-	@Email
 	@Column(nullable=false)
 	private String mail;
 	
-	@Pattern(regexp="^[a-z0-9_-]{3,15}$")
 	private String username;
 	
+	@Column(nullable=false)
+	private Boolean active;
+	
+
+	public Boolean getActive() {
+		return active;
+	}
+
+	public void setActive(Boolean active) {
+		this.active = active;
+	}
+
 	public String getPassword() {
 		return password;
 	}
