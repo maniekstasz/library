@@ -8,7 +8,7 @@ import pl.styall.library.core.model.AbstractUserData;
 
 
 
-public class UserRegForm<USER_DATA extends AbstractUserData<ADDRESS>, ADDRESS extends AbstractAddress> extends UserFormModel {
+public class UserRegForm<USER_DATA extends AbstractUserData, ADDRESS extends AbstractAddress> extends UserFormModel {
 	
 	private static final long serialVersionUID = -478416500302410517L;
 

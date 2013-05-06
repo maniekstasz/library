@@ -37,7 +37,6 @@ public class DaoQueryObject {
 		}
 //		if(!ReflectionHelper.containsDeclaredField(clazz, name))
 //			return;
-
 		alias = alias != ""? alias + ".": "";
 		switch(type){
 		case LESS:
@@ -47,6 +46,7 @@ public class DaoQueryObject {
 			criteria.add(Restrictions.ge(alias + name, value));
 			break;
 		case IN:
+			
 			criteria.add(Restrictions.in(alias+name,(Collection) value));
 			break;
 		case IN_CONJUNCTION:

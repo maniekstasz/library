@@ -26,7 +26,7 @@ public class UserServiceImpl extends
 		credentials.setMail(userRegForm.getMail());
 		UserData userData = userRegForm.getUserData();
 		user.setUserData(userData);
-		userData.addAddress(address);
+		user.addAddress(address);
 		UserRole userRole = userDao.loadUserRoleByName("ROLE_USER");
 		if (userRole == null) {
 			userRole = new UserRole();

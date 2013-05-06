@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import pl.styall.library.core.model.AbstractCompany;
 
 @Entity
-@Table(name="comapny")
+@Table(name="comapnies")
 public class Company extends AbstractCompany<Address>{
 
 	/**

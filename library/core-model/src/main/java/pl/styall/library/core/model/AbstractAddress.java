@@ -24,18 +24,19 @@ public abstract class AbstractAddress extends CommonEntity {
 		HOME, CONTACT, OTHER
 	};
 
-	@Size(min = 3, max = 20)
-	@Column(nullable = false, length=20)
+	@Size(min = 3, max = 64)
+	@Column(nullable = false, length=64)
 	@NotEmpty
 	private String city;
 
-	@Size(min = 3, max = 20)
-	@Column(nullable = false, length=20)
+	@Size(min = 3, max = 64)
+	@Column(nullable = false, length=64)
 	@NotEmpty
 	private String street;
 
 	@Pattern(regexp = "^[0-9]{2}-[0-9]{3}$")
 	@NotEmpty
+	@Column(length=6)
 	private String zip;
 
 	@Size(min = 1, max = 20)
@@ -45,7 +46,8 @@ public abstract class AbstractAddress extends CommonEntity {
 
 	private String name;
 
-	private AddressType type;
+	@Column(nullable=false)
+	private AddressType type = AddressType.HOME;
 
 	public String getCity() {
 		return city;

@@ -28,16 +28,17 @@ public abstract class AbstractCompany<ADDRESS extends AbstractAddress> extends C
 
 	@NotEmpty
 	@Pattern(regexp = "^[0-9]{10}$")
+	@Column(length=10)
 	private String nip;
 
 
 
 	@Temporal(TemporalType.TIMESTAMP)
-	@Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
-	private Date dateRegistered;
+	@Column(columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP", name="creation_date")
+	private Date creationDate;
 
 	@Valid
-	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+	@OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional=false)
 	@JoinColumn(name = "address_id")
 	private ADDRESS address;
 
@@ -49,13 +50,6 @@ public abstract class AbstractCompany<ADDRESS extends AbstractAddress> extends C
 		this.phone = phone;
 	}
 
-	public Date getDateRegistered() {
-		return dateRegistered;
-	}
-
-	private void setDateRegistered(Date dateRegistered) {
-		this.dateRegistered = dateRegistered;
-	}
 
 	public String getNip() {
 		return nip;
@@ -79,6 +73,14 @@ public abstract class AbstractCompany<ADDRESS extends AbstractAddress> extends C
 
 	public void setAddress(ADDRESS address) {
 		this.address = address;
+	}
+
+	public Date getCreationDate() {
+		return creationDate;
+	}
+
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
 	}
 
 }

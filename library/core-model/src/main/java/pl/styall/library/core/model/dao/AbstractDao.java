@@ -19,7 +19,7 @@ import pl.styall.library.core.model.CommonEntity;
 public abstract class AbstractDao<EntityT extends CommonEntity>{
 	
 	@Autowired
-	private SessionFactory sessionFactory;
+	private SessionFactory sessionFactory; 
 	
 	protected Session currentSession() {
 		return sessionFactory.getCurrentSession();

@@ -19,31 +19,25 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 
 @MappedSuperclass
-public abstract class AbstractUserData<ADDRESS extends AbstractAddress> extends CommonEntity{
+public abstract class AbstractUserData extends CommonEntity{
 	
 	private static final long serialVersionUID = 4042781705716825393L;
 	public enum Sex {MALE, FEMALE};
 	
-	
-
 	private String name;
 	
-
 	private String surname;
-	
 	
 	@Enumerated
 	private Sex sex;
 	
 	private String phone;
 	
-	@Column(nullable=false)
 	@Temporal(TemporalType.DATE)
+	@Column(name="birth_date",nullable=false)
 	private Date birthDate;
 	
-	@OneToMany(fetch=FetchType.LAZY, cascade=CascadeType.ALL)
-	private List<ADDRESS> addresses = new ArrayList<ADDRESS>();
-	
+	@Column(name="image_url")
 	private String imageUrl;
 	
 	public String getImageUrl() {
@@ -83,13 +77,4 @@ public abstract class AbstractUserData<ADDRESS extends AbstractAddress> extends 
 		this.birthDate = birthDate;
 	}
 	
-	public List<ADDRESS> getAddresses() {
-		return addresses;
-	}
-	public void setAddresses(List<ADDRESS> addresses) {
-		this.addresses = addresses;
-	}
-	public void addAddress(ADDRESS address) {
-		this.addresses.add(address);
-	}
 }
