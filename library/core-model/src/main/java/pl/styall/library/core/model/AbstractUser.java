@@ -39,7 +39,6 @@ public abstract class AbstractUser<USER_DATA extends AbstractUserData, ADDRESS e
 	@Embedded
 	private Credentials credentials;
 
-	// TODO: change to lazy fetching but seriously lazy fetchings
 	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, optional = false)
 	@JoinColumn(name = "user_data_id")
 	private USER_DATA userData;
