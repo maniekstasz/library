@@ -12,7 +12,8 @@
 		<module>social-module</module>
 	</modules>
 	<properties>
-		<springframework-version>3.1.2.RELEASE</springframework-version>
+		<springframework-version>3.2.5.RELEASE</springframework-version>
+				<org.springframework-security-version>3.1.4.RELEASE</org.springframework-security-version>
 		<org.springframework.social-version>1.1.0.BUILD-SNAPSHOT</org.springframework.social-version>
 		<org.springframework.social.facebook-version>1.1.0.BUILD-SNAPSHOT</org.springframework.social.facebook-version>
 	</properties>
@@ -110,13 +111,13 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>3.1.2.RELEASE</version>
+			<version>${org.springframework-security-version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			<version>3.1.2.RELEASE</version>
+			<version>${springframework-version}</version>
 			<optional>true</optional>
 		</dependency>
 
@@ -129,7 +130,7 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-core</artifactId>
-			<version>3.1.2.RELEASE</version>
+			<version>${org.springframework-security-version}</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
