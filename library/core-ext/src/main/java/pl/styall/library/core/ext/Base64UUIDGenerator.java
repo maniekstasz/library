@@ -2,7 +2,6 @@ package pl.styall.library.core.ext;
 
 import java.io.Serializable;
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.util.Properties;
 import java.util.UUID;
 

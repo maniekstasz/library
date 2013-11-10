@@ -1,15 +1,11 @@
 package pl.styall.library.core.model.dao;
 
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
 
 import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.GenericTypeResolver;
 

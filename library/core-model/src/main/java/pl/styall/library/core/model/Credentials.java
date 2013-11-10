@@ -5,9 +5,6 @@ import java.security.SecureRandom;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
-import javax.validation.constraints.*;
-
-import org.hibernate.validator.constraints.Email;
 
 @Embeddable
 public class Credentials implements Serializable {

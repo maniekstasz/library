@@ -1,10 +1,7 @@
 package pl.styall.library.core.model.dao;
 
-import java.util.Map;
-
 import org.hibernate.Criteria;
 import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 
 public class CriteriaConfigurer {
 

@@ -1,17 +1,12 @@
 package pl.styall.library.core.model.service.impl;
 
-import java.util.UUID;
-
 import org.hibernate.Hibernate;
-import org.hibernate.engine.HibernateIterator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.styall.library.core.model.AbstractUser;
 import pl.styall.library.core.model.dao.UserDao;
-import pl.styall.library.core.model.defaultimpl.User;
 import pl.styall.library.core.model.service.AbstractUserService;
 
 public abstract class AbstractUserServiceImpl<USER extends AbstractUser<?, ?>>

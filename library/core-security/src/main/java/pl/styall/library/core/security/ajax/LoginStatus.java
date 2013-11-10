@@ -1,7 +1,5 @@
 package pl.styall.library.core.security.ajax;
 
-import java.util.UUID;
-
 public class LoginStatus {
 
     private final boolean loggedIn;

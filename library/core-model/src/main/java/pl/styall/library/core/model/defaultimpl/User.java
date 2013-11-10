@@ -4,8 +4,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
-import pl.styall.library.core.model.AbstractAddress;
-
 @Entity
 @Table(name="users",uniqueConstraints={@UniqueConstraint(columnNames={"username"}), @UniqueConstraint(columnNames={"mail"})})
 public class User extends pl.styall.library.core.model.AbstractUser<UserData, Address> {

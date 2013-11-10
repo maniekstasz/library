@@ -2,8 +2,6 @@ package pl.styall.library.core.model.dao;
 
 import java.util.Collection;
 
-import org.springframework.stereotype.Repository;
-
 import pl.styall.library.core.model.AbstractUser;
 import pl.styall.library.core.model.UserRole;
 

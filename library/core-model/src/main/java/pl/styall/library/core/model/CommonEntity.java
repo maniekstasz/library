@@ -1,18 +1,10 @@
 package pl.styall.library.core.model;
 
 import java.io.Serializable;
-import java.util.UUID;
-
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.Loader;
-import org.hibernate.annotations.Parameter;
-import org.hibernate.annotations.Type;
 
 @MappedSuperclass
 public class CommonEntity implements Serializable {
