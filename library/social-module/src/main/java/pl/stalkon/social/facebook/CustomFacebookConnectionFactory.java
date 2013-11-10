@@ -8,9 +8,9 @@ public class CustomFacebookConnectionFactory extends
 		OAuth2ConnectionFactory<Facebook> {
 
 	public CustomFacebookConnectionFactory(String clientId, String clientSecret) {
-		super("facebook", new FacebookServiceProvider(clientId, clientSecret, null), new CustomFacebookAdapter());
+		super("facebook", new FacebookServiceProvider(clientId, clientSecret), new CustomFacebookAdapter());
 	}
 	public CustomFacebookConnectionFactory(String clientId, String clientSecret, String appNameSpace) {
-		super("facebook", new FacebookServiceProvider(clientId, clientSecret, appNameSpace), new CustomFacebookAdapter());
+		super("facebook", new FacebookServiceProvider(clientId, clientSecret), new CustomFacebookAdapter());
 	}
 }
