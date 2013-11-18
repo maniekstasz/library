@@ -12,35 +12,31 @@ public class LoggedUser extends User {
 	private static final long serialVersionUID = 326479337951276717L;
 
 	private Long id;
-	private String salt;
 	private String imageUrl;
 
 
 	public LoggedUser(Long id, String username, String password,
-			String salt, String imageUrl,
+			 String imageUrl,
 			boolean enabled, boolean accountNonExpired,
 			boolean credentialsNonExpired, boolean accountNonLocked,
 			Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, enabled, accountNonExpired,
 				credentialsNonExpired, accountNonLocked, authorities);
 		this.id = id;
-		this.salt = salt;
 		this.imageUrl = imageUrl;
 	}
 
 	public LoggedUser(Long id, String username, String password,
-			String salt, String imageUrl,
+			 String imageUrl,
 			Collection<? extends GrantedAuthority> authorities) {
 		super(username, password, authorities);
 		this.id = id;
-		this.salt = salt;
 		this.imageUrl = imageUrl;
 	}
 
 	@Override
 	public void eraseCredentials() {
 		super.eraseCredentials();
-		salt = null;
 	}
 
 	public Long getId() {
@@ -49,14 +45,6 @@ public class LoggedUser extends User {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getSalt() {
-		return salt;
-	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
 	}
 
 	public String getImageUrl() {

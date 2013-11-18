@@ -1,5 +1,7 @@
 package pl.styall.library.core.model.defaultimpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +13,9 @@ public class UserServiceImpl extends
 		pl.styall.library.core.model.service.impl.AbstractUserServiceImpl<User>
 		implements UserService {
 
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
+	
 	@Override
 	@Transactional
 	public User register(UserRegForm userRegForm) {
@@ -19,10 +24,8 @@ public class UserServiceImpl extends
 		String password = userRegForm.getPassword();
 		Address address = userRegForm.getAddress();
 
-		credentials.setSalt();
 		credentials.setToken();
-		credentials.setPassword(passwordEncoder.encodePassword(password,
-				credentials.getSalt()));
+		credentials.setPassword(passwordEncoder.encode(password));
 		credentials.setMail(userRegForm.getMail());
 		UserData userData = userRegForm.getUserData();
 		user.setUserData(userData);

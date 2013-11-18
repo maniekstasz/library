@@ -17,13 +17,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class QueryArgumentResolver implements WebArgumentResolver {
 
 	private final static String del = "&";
-	@Autowired
-	private ObjectMapper jacksonObjectMapper;
 
 	@Override
 	public Object resolveArgument(MethodParameter param,
 			NativeWebRequest request) throws Exception {
-		System.out.println("Jestem w");
 		Annotation[] paramAnns = param.getParameterAnnotations();
 		Class paramType = param.getParameterType();
 		for (Annotation paramAnn : paramAnns) {
@@ -41,7 +38,6 @@ public class QueryArgumentResolver implements WebArgumentResolver {
 					throw new IllegalStateException("Missing parameter");
 				QueryObjectWrapper wrapper = new QueryObjectWrapper();
 				wrapper.queryObject = result;
-				System.out.println(wrapper.queryObject + "wrapper");
 				return wrapper;
 			}
 		}
@@ -51,7 +47,6 @@ public class QueryArgumentResolver implements WebArgumentResolver {
 	private boolean contains(String[] objects, String obj) {
 		for (int i = 0; i < objects.length; i++) {
 			if (objects[i].equals(obj)){
-				System.out.println(obj);
 				return true;
 			}
 		}
@@ -61,7 +56,6 @@ public class QueryArgumentResolver implements WebArgumentResolver {
 	private Map<String, Object> getParsedObject(String url, String queryString,
 			String[] objects) {
 		Map<String, Object> result = new HashMap<String, Object>();
-		System.out.println(url);
 		String urlParts[] = url.split("/");
 		
 		boolean value = false;

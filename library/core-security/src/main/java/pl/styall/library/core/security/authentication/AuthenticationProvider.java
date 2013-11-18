@@ -9,12 +9,13 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.CredentialsContainer;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class AuthenticationProvider implements org.springframework.security.authentication.AuthenticationProvider {
 	
 	@Autowired
 	private UserDetailsService userDetailsService;
 	@Autowired
-	private PasswordEncoder passwordEncoder;
+	private BCryptPasswordEncoder passwordEncoder;
 
 //	public AuthenticationProvider(UserDetailsService userService, PasswordEncoder passwordEncoder) {
 //		this.userService = userService;
@@ -40,8 +41,8 @@ public class AuthenticationProvider implements org.springframework.security.auth
 	private void authenticationChecks(LoggedUser user,
 			Authentication authentication) throws AuthenticationException {
 		String requestPassword = (String) authentication.getCredentials();
-		String encodedPassword = passwordEncoder.encodePassword(requestPassword, user.getSalt());
-		if(!encodedPassword.equals(user.getPassword())){
+		
+		if(passwordEncoder.matches(requestPassword, user.getPassword())){
 			throw new BadCredentialsException("Bad credentials");
 		}
 	}

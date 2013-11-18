@@ -3,6 +3,7 @@ package pl.styall.library.core.model.service.impl;
 import org.hibernate.Hibernate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.encoding.ShaPasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.styall.library.core.model.AbstractUser;
@@ -15,7 +16,7 @@ public abstract class AbstractUserServiceImpl<USER extends AbstractUser<?, ?>>
 	protected UserDao<USER> userDao;
 
 	@Autowired
-	protected ShaPasswordEncoder passwordEncoder;
+	protected BCryptPasswordEncoder passwordEncoder;
 
 	@Override
 	@Transactional
@@ -33,13 +34,9 @@ public abstract class AbstractUserServiceImpl<USER extends AbstractUser<?, ?>>
 	public boolean changePassword(Long id, String oldPassword,
 			String newPassword) {
 		USER user = userDao.get(id);
-		String encodedPassword = passwordEncoder.encodePassword(oldPassword,
-				user.getCredentials().getSalt());
-
-		if (encodedPassword.equals(user.getCredentials().getPassword())) {
-			user.getCredentials().setSalt();
-			String encodedNewPassword = passwordEncoder.encodePassword(
-					newPassword, user.getCredentials().getSalt());
+		if (passwordEncoder.matches(oldPassword, user.getCredentials().getPassword())) {
+			String encodedNewPassword = passwordEncoder.encode(
+					newPassword);
 			user.getCredentials().setPassword(encodedNewPassword);
 			userDao.update(user);
 		} else {

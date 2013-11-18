@@ -6,6 +6,8 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 
+import org.springframework.security.crypto.keygen.KeyGenerators;
+
 @Embeddable
 public class Credentials implements Serializable {
 	/**
@@ -18,8 +20,6 @@ public class Credentials implements Serializable {
 
 	@Column(nullable = false)
 	private String password;
-	@Column(nullable = false)
-	private String salt;
 	@Column(nullable = false)
 	private String token;
 
@@ -48,20 +48,12 @@ public class Credentials implements Serializable {
 		this.password = password;
 	}
 
-	public String getSalt() {
-		return salt;
-	}
-
-	public void setSalt() {
-		this.salt = generateRandomString(32);
-	}
-
 	public String getToken() {
 		return token;
 	}
 
 	public void setToken() {
-		this.token = generateRandomString(32);
+		this.token = KeyGenerators.string().generateKey();
 	}
 
 	public String getMail() {
@@ -80,19 +72,5 @@ public class Credentials implements Serializable {
 		this.username = username;
 	}
 
-	private String generateRandomString(int length) {
-		char[] values = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j',
-				'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v',
-				'w', 'x', 'y', 'z', '0', '1', '2', '3', '4', '5', '6', '7',
-				'8', '9' };
-		String out = "";
-		for (int i = 0; i < length; i++) {
-			int idx = random.nextInt(values.length);
-			out += values[idx];
-		}
-
-		return out;
-
-	}
 
 }
