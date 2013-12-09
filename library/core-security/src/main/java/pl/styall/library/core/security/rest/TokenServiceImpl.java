@@ -3,6 +3,7 @@ package pl.styall.library.core.security.rest;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.CredentialsContainer;
@@ -19,15 +20,18 @@ public class TokenServiceImpl implements TokenService{
 	private TokenRepository tokenRepository;
 	private UserDetailsService userDetailsService;
 	private BCryptPasswordEncoder passwordEncoder;
+	
+	private UserLoginsService userLoginsService;
 	private final static int TOKEN_EXPIRES_IN_MINUTES = 30;
 	private int tokenExpires = TOKEN_EXPIRES_IN_MINUTES;
 	
 	public TokenServiceImpl(TokenRepository tokenRepository,
 			UserDetailsService userDetailsService,
-			BCryptPasswordEncoder passwordEncoder) {
+			BCryptPasswordEncoder passwordEncoder,UserLoginsService userLoginsService) {
 		this.tokenRepository = tokenRepository;
 		this.userDetailsService = userDetailsService;
 		this.passwordEncoder = passwordEncoder;
+		this.userLoginsService = userLoginsService;
 	}
 
 	
@@ -83,7 +87,8 @@ public class TokenServiceImpl implements TokenService{
 	@Override
 	@Transactional
 	public void removeUserTokens(String login) {
-		tokenRepository.removeUserTokens(login);
+		List<String> logins = userLoginsService.getUserLogins(login);
+		tokenRepository.removeUserTokens(logins);
 	}
 
 

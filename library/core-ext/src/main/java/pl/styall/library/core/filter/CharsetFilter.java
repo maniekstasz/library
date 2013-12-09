@@ -9,7 +9,11 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
+import org.apache.log4j.Logger;
+
 public class CharsetFilter implements Filter {
+	
+	private Logger log = Logger.getLogger(CharsetFilter.class);
 
 	private String encoding;
 
@@ -30,7 +34,7 @@ public class CharsetFilter implements Filter {
 		/**
 		 * Set the default response content type and encoding
 		 */
-		
+		log.debug("Set encoding to utf-8");
 		response.setContentType("text/html; charset=UTF-8");
 		response.setCharacterEncoding("UTF-8");
 		next.doFilter(request, response);

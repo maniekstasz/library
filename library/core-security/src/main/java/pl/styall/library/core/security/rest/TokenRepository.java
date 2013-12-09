@@ -1,6 +1,7 @@
 package pl.styall.library.core.security.rest;
 
 import java.util.Date;
+import java.util.List;
 
 
 
@@ -12,6 +13,6 @@ public interface TokenRepository {
 
     UserAuthToken getTokenForSeries(String series);
 
-    void removeUserTokens(String login);
+    void removeUserTokens(List<String> login);
     
 }

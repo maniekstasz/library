@@ -35,10 +35,9 @@ public class EntityDtmMapper {
 		return dtm;
 	}
 
-	public List<Object> mapEntitiesToDtm(List<?> entities,
-			Class<?> clazz, List<String> propertiesToMap) {
-		List<Object> result = new ArrayList<Object>(
-				entities.size());
+	public List<Object> mapEntitiesToDtm(List<?> entities, Class<?> clazz,
+			List<String> propertiesToMap) {
+		List<Object> result = new ArrayList<Object>(entities.size());
 		for (Object entity : entities) {
 			result.add(mapEntityToDtm(entity, clazz, propertiesToMap));
 		}
@@ -58,15 +57,19 @@ public class EntityDtmMapper {
 			try {
 				Method fieldMethod = getGetterMethod(fieldName, clazz);
 				Object fieldObject = fieldMethod.invoke(entity);
-				if (dtm.containsKey(fieldName)) {
-					decideForNestedObject(subProp,
-							(Map<String, Object>) dtm.get(fieldName),
-							fieldObject, fieldMethod.getReturnType());
+				if (fieldObject != null) {
+					if (dtm.containsKey(fieldName)) {
+						decideForNestedObject(subProp,
+								(Map<String, Object>) dtm.get(fieldName),
+								fieldObject, fieldMethod.getReturnType());
+					} else {
+						Map<String, Object> childDtm = new HashMap<String, Object>();
+						dtm.put(fieldName, childDtm);
+						decideForNestedObject(subProp, childDtm, fieldObject,
+								fieldMethod.getReturnType());
+					}
 				} else {
-					Map<String, Object> childDtm = new HashMap<String, Object>();
-					dtm.put(fieldName, childDtm);
-					decideForNestedObject(subProp, childDtm, fieldObject,
-							fieldMethod.getReturnType());
+					dtm.put(fieldName, fieldObject);
 				}
 			} catch (NoSuchMethodException e2) {
 				log.fatal(e2.getMessage(), e2);
@@ -74,9 +77,14 @@ public class EntityDtmMapper {
 
 		} else {
 			try {
-				Method fieldMethod = getGetterMethod(prop, clazz);
-				Object value = fieldMethod.invoke(entity);
-				dtm.put(prop, value);
+				if (entity != null) {
+					Method fieldMethod = getGetterMethod(prop, clazz);
+					Object value = fieldMethod.invoke(entity);
+					dtm.put(prop, value);
+				}else{
+					dtm.put(prop, null);
+				}
+
 			} catch (NoSuchMethodException e) {
 				log.fatal(e);
 			}

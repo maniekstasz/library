@@ -1,6 +1,7 @@
 package pl.styall.library.core.security.rest;
 
 import java.util.Date;
+import java.util.List;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,10 @@ public class HibernateTokenRepository implements TokenRepository {
 	}
 
 	@Override
-	public void removeUserTokens(String login) {
-		sessionFactory.getCurrentSession().createQuery("delete UserAuthToken where login = :login").setString("login", login).uniqueResult();
+	public void removeUserTokens(List<String> logins) {
+		System.out.println(logins.get(0));
+		System.out.println(logins.get(1));
+		sessionFactory.getCurrentSession().createQuery("delete UserAuthToken where login=:username or login=:mail").setString("username", logins.get(0)).setString("mail", logins.get(1)).executeUpdate();
 	}
 
 

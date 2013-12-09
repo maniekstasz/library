@@ -1,5 +1,6 @@
 package pl.styall.library.core.security.rest;
 
+import java.io.Reader;
 import java.security.Principal;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ public class LoginController {
 
 	private UserStatusMapper userMapper;
 	
+	
 	public LoginController(TokenService tokenService,UserStatusMapper userMapper) {
 		super();
 		this.tokenService = tokenService;
@@ -36,8 +38,12 @@ public class LoginController {
 	@RequestMapping(value = "/user/login", method = RequestMethod.POST)
 	@ResponseBody
 	public Token login(@RequestParam("login") String login,
-			@RequestParam("password") String password) {
+			@RequestParam("password") String password, @RequestParam(value="deleteTokens", required=false)Boolean deleteTokens) {
+		if(deleteTokens != null){
+			tokenService.removeUserTokens(login);
+		}
 		Token token =  tokenService.getToken(login, password);
+
 		if(userMapper  != null){
 			return new Token(token.getSeries(), token.getToken(), userMapper.map(token.getPrincipal()));
 		}

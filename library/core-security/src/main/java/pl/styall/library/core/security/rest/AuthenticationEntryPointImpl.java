@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 
 public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
@@ -18,11 +19,12 @@ public class AuthenticationEntryPointImpl implements AuthenticationEntryPoint {
 			HttpServletResponse response, AuthenticationException authException)
 			throws IOException, ServletException {
 		if (authException instanceof SeriesTokenStolenException) {
-			System.out.println("Stolen");
+			response.setStatus(441);
 		} else if (authException instanceof BadCredentialsException)
 			response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		 else if (authException instanceof UsernameNotFoundException)
+				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 		else {
-			System.out.println(authException.getClass());
 			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 		}
 
