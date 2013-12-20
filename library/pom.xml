@@ -19,6 +19,7 @@
 				<slf4j.version>1.6.1</slf4j.version>
         <log4j.version>1.2.14</log4j.version>
         		<hibernate.version>4.2.4.Final</hibernate.version>
+        		<jackson.version>2.2.2</jackson.version>
 	</properties>
 	<build>
 		<plugins>
@@ -215,6 +216,10 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-    
+    <dependency>
+  <groupId>com.fasterxml.jackson.datatype</groupId>
+  <artifactId>jackson-datatype-hibernate4</artifactId>
+			<version>${jackson.version}</version>
+</dependency> 
 	</dependencies>
 </project>

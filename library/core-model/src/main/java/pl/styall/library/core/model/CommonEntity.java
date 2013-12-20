@@ -6,6 +6,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.proxy.HibernateProxy;
+import org.hibernate.proxy.LazyInitializer;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+//import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
+
 @MappedSuperclass
 public class CommonEntity implements Serializable {
 
@@ -19,6 +27,7 @@ public class CommonEntity implements Serializable {
 	// "pl.styall.library.core.ext.Base64UUIDGenerator",parameters = {
 	// @Parameter(name = "uuid_gen_strategy_class", value =
 	// "org.hibernate.id.uuid.CustomVersionOneStrategy") })
+
 	protected Long id;
 
 	public Long getId() {
@@ -42,5 +51,6 @@ public class CommonEntity implements Serializable {
 
 		return true;
 	}
+	
 
 }
