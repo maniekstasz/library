@@ -20,6 +20,7 @@
 			<url>http://www.hibernatespatial.org/repository</url>
 		</repository>
 	</repositories>
+
 	<dependencies>
 
 		<dependency>
