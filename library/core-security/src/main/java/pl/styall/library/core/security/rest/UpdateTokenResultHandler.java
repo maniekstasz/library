@@ -1,9 +1,6 @@
 package pl.styall.library.core.security.rest;
 
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

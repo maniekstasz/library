@@ -1,7 +1,5 @@
 package pl.styall.library.core.security.rest;
 
-import java.util.Date;
-
 public interface TokenService {
 	Token getToken(String login, String password);
 	String generateToken();

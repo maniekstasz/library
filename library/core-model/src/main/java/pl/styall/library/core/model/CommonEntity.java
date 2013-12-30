@@ -6,11 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import org.hibernate.proxy.HibernateProxy;
-import org.hibernate.proxy.LazyInitializer;
-
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
 //import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 
