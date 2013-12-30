@@ -20,6 +20,7 @@
         <log4j.version>1.2.14</log4j.version>
         		<hibernate.version>4.2.4.Final</hibernate.version>
         		<jackson.version>2.2.2</jackson.version>
+        		<github.global.server>github</github.global.server>
 	</properties>
 	<build>
 		<plugins>
@@ -31,6 +32,29 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+			<plugin>
+            <groupId>com.github.github</groupId>
+            <artifactId>site-maven-plugin</artifactId>
+            <version>0.8</version>
+            <configuration>
+                <message>Maven artifacts for ${project.version}</message>  <!-- git commit message -->
+                <noJekyll>true</noJekyll>                                  <!-- disable webpage processing -->
+                <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory> <!-- matches distribution management repository url above -->
+                <branch>refs/heads/mvn-repo</branch>                       <!-- remote branch name -->
+                <includes><include>**/*</include></includes>
+                <repositoryName>library</repositoryName>      <!-- github repo name -->
+                <repositoryOwner>stallon2</repositoryOwner>    <!-- github username  -->
+            </configuration>
+            <executions>
+              <!-- run site-maven-plugin's 'site' target as part of the build's normal 'deploy' phase -->
+              <execution>
+                <goals>
+                  <goal>site</goal>
+                </goals>
+                <phase>deploy</phase>
+              </execution>
+            </executions>
+        </plugin>
 			<!-- <plugin> -->
 			<!-- <inherited>false</inherited> -->
 			<!-- <groupId>org.codehaus.mojo</groupId> -->
@@ -52,12 +76,19 @@
 			<!-- </plugin> -->
 		</plugins>
 	</build>
+	<!-- <distributionManagement> -->
+	<!-- <repository> -->
+	<!-- <id>dropbox</id> -->
+	<!-- <url>file:///{env.DROPBOX}\repository</url> -->
+	<!-- </repository> -->
+	<!-- </distributionManagement> -->
 	<distributionManagement>
-		<repository>
-			<id>dropbox</id>
-			<url>file:///{env.DROPBOX}\repository</url>
-		</repository>
-	</distributionManagement>
+	    <repository>
+	        <id>internal.repo</id>
+	        <name>Temporary Staging Repository</name>
+	        <url>file://${project.build.directory}/mvn-repo</url>
+	    </repository>
+</distributionManagement>
 	<repositories>
 		<repository>
 			<id>org.springframework.maven.release</id>
@@ -71,10 +102,10 @@
 			</snapshots>
 
 		</repository>
-		<repository>
-			<id>dropbox</id>
-			<url>file:///C:\Users\szymon\Dropbox\repository</url>
-		</repository>
+<!-- 		<repository> -->
+<!-- 			<id>dropbox</id> -->
+<!-- 			<url>file:///C:\Users\szymon\Dropbox\repository</url> -->
+<!-- 		</repository> -->
 		<repository>
 			<id>org.springframework.maven.snapshot</id>
 			<name>Spring Maven Snapshot Repository</name>
