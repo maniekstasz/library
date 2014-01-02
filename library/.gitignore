@@ -1,6 +1,7 @@
 .project
 .settings
 .classpath
+build.bat
 target
 */target
 */.settings
