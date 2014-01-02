@@ -47,7 +47,7 @@
 	    <repository>
 	        <id>internal.repo</id>
 	        <name>Temporary Staging Repository</name>
-	        <url>file://${project.build.directory}/snapshots</url>
+	        <url>file://${basedir}/snapshots/${project.artifactId}</url>
 	    </repository>
 </distributionManagement>
 	<repositories>
