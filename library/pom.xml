@@ -43,13 +43,6 @@
 	<!-- <url>file:///{env.DROPBOX}\repository</url> -->
 	<!-- </repository> -->
 	<!-- </distributionManagement> -->
-	<distributionManagement>
-	    <repository>
-	        <id>internal.repo</id>
-	        <name>Temporary Staging Repository</name>
-	        <url>file://${basedir}/snapshots/${project.artifactId}</url>
-	    </repository>
-</distributionManagement>
 	<repositories>
 		<repository>
 			<id>org.springframework.maven.release</id>
