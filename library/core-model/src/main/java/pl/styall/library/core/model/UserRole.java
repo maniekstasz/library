@@ -23,11 +23,9 @@ public class UserRole implements Serializable {
 	
 	@Override
 	public boolean equals(Object obj) {
-		System.out.println(role.equals(((UserRole) obj).getRole()));
 		return role.equals(((UserRole) obj).getRole());
 	}
-	
-	
+		
 	public UserRole() {
 		this.setRole("ROLE_ANONYMOUS");
 	}
