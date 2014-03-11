@@ -15,22 +15,23 @@
 	<properties>
 		<project.path>pl/styall/library</project.path>
 		<springframework-version>3.2.5.RELEASE</springframework-version>
-				<org.springframework-security-version>3.1.4.RELEASE</org.springframework-security-version>
+		<org.springframework-security-version>3.1.4.RELEASE</org.springframework-security-version>
 		<org.springframework.social-version>1.0.3.RELEASE</org.springframework.social-version>
 		<org.springframework.social.facebook-version>1.0.3.RELEASE</org.springframework.social.facebook-version>
-				<slf4j.version>1.6.1</slf4j.version>
-        <log4j.version>1.2.14</log4j.version>
-        		<hibernate.version>4.2.4.Final</hibernate.version>
-        		<jackson.version>2.2.2</jackson.version>
-        		<github.global.server>github</github.global.server>
+		<slf4j.version>1.6.1</slf4j.version>
+		<log4j.version>1.2.14</log4j.version>
+		<hibernate.version>4.2.4.Final</hibernate.version>
+		<jackson.version>2.2.2</jackson.version>
+		<github.global.server>github</github.global.server>
 	</properties>
 	<build>
 		<plugins>
 			<plugin>
-			<inherited>true</inherited>
+				<inherited>true</inherited>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>2.0.2</version>
 				<configuration>
+					<encoding>UTF-8</encoding>
 					<source>1.6</source>
 					<target>1.6</target>
 				</configuration>
@@ -56,10 +57,10 @@
 			</snapshots>
 
 		</repository>
-<!-- 		<repository> -->
-<!-- 			<id>dropbox</id> -->
-<!-- 			<url>file:///C:\Users\szymon\Dropbox\repository</url> -->
-<!-- 		</repository> -->
+		<!-- <repository> -->
+		<!-- <id>dropbox</id> -->
+		<!-- <url>file:///C:\Users\szymon\Dropbox\repository</url> -->
+		<!-- </repository> -->
 		<repository>
 			<id>org.springframework.maven.snapshot</id>
 			<name>Spring Maven Snapshot Repository</name>
@@ -164,52 +165,52 @@
 			<version>1.1.0.BUILD-SNAPSHOT</version>
 			<optional>true</optional>
 		</dependency>
-		
-		 <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-            <type>jar</type>
-            <scope>compile</scope>
-    </dependency>
- 
 
-    <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j.version}</version>
-            <type>jar</type>
-            <scope>compile</scope>
-    </dependency> 
-    <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-log4j12</artifactId>
-            <version>${slf4j.version}</version>
-            <type>jar</type>
-            <scope>compile</scope>
-    </dependency>
-    <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>${slf4j.version}</version>
-            <type>jar</type>
-            <scope>compile</scope>
-    </dependency>
-    
-    <dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>${slf4j.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<version>${slf4j.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<version>${slf4j.version}</version>
+			<type>jar</type>
+			<scope>compile</scope>
+		</dependency>
+
+		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>${hibernate.version}</version>
 		</dependency>
-    <dependency>
-  <groupId>com.fasterxml.jackson.datatype</groupId>
-  <artifactId>jackson-datatype-hibernate4</artifactId>
+		<dependency>
+			<groupId>com.fasterxml.jackson.datatype</groupId>
+			<artifactId>jackson-datatype-hibernate4</artifactId>
 			<version>${jackson.version}</version>
-</dependency>
-    <dependency>
-    	<groupId>org.apache.commons</groupId>
-    	<artifactId>commons-lang3</artifactId>
-    	<version>3.1</version>
-    </dependency>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.1</version>
+		</dependency>
 	</dependencies>
 </project>
